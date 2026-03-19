@@ -353,7 +353,7 @@ export const mockPhases = [
   {
     id: 1,
     name: 'Planning Phase',
-    project: 'Estate Craft',
+    project: 'Crafthomes',
     startDate: '2024-01-01',
     endDate: '2024-01-31',
     progress: 100,
@@ -362,7 +362,7 @@ export const mockPhases = [
   {
     id: 2,
     name: 'Design Phase',
-    project: 'Estate Craft',
+    project: 'Crafthomes',
     startDate: '2024-02-01',
     endDate: '2024-02-28',
     progress: 85,
@@ -371,7 +371,7 @@ export const mockPhases = [
   {
     id: 3,
     name: 'Development Phase',
-    project: 'Estate Craft',
+    project: 'Crafthomes',
     startDate: '2024-03-01',
     endDate: '2024-05-31',
     progress: 45,
@@ -380,7 +380,7 @@ export const mockPhases = [
   {
     id: 4,
     name: 'Testing Phase',
-    project: 'Estate Craft',
+    project: 'Crafthomes',
     startDate: '2024-06-01',
     endDate: '2024-06-30',
     progress: 0,
@@ -389,7 +389,7 @@ export const mockPhases = [
   {
     id: 5,
     name: 'Deployment Phase',
-    project: 'Estate Craft',
+    project: 'Crafthomes',
     startDate: '2024-07-01',
     endDate: '2024-07-15',
     progress: 0,

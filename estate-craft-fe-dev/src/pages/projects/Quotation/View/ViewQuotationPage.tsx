@@ -5,7 +5,7 @@ import { IconDownload } from '@tabler/icons-react';
 
 import { Table } from '@mantine/core';
 
-import { Button, EditIcon, Image } from '../../../../components';
+import { Button, CrafthomesWordmark, EditIcon, Image } from '../../../../components';
 import Container from '../../../../components/common/Container';
 import IconButton from '../../../../components/base/button/IconButton';
 import BackButton from '../../../../components/base/button/BackButton';
@@ -21,15 +21,14 @@ import { QuotationSkeleton } from '../../../../components/base/Skeletons';
 import { Link } from 'react-router-dom';
 import { prefixCurrencyInPrice } from '../../../../utils/helper';
 import { generateQuotationPDF } from '../../../../utils/pdfGenerator';
-import logo from '../../../../assets/img/logo.png';
 
 // Fallback company details (used when policy is null)
-const FALLBACK_COMPANY_NAME = 'Estate Craft';
+const FALLBACK_COMPANY_NAME = 'Crafthomes';
 const FALLBACK_COMPANY_ADDRESS = '';
 const FALLBACK_COMPANY_PHONE = '';
 
 // Fallback account details (used when policy is null)
-const FALLBACK_ACCOUNT_NAME = 'Estate Craft';
+const FALLBACK_ACCOUNT_NAME = 'Crafthomes';
 const FALLBACK_BANK = '';
 const FALLBACK_ACCOUNT_NUMBER = '';
 const FALLBACK_IFSC = '';
@@ -38,7 +37,7 @@ const FALLBACK_GST_NO = '';
 
 // Fallback Terms & Conditions (used when policy is null)
 const FALLBACK_TERMS_AND_CONDITIONS = [
-  'These Terms & Conditions apply to all purchases from Estate Craft. Please read them carefully.',
+  'These Terms & Conditions apply to all purchases from Crafthomes. Please read them carefully.',
   'Product Representation: Designs and accessories shown are for representation only.',
   'Image and Color Variations: Images and colors are for reference and can vary.',
   'Delivery Periods: As per agreement.',
@@ -146,7 +145,7 @@ export default function ViewQuotationPage() {
 
   // Get policy data or use fallbacks
   const policy = (quotation as any)?.policy;
-  const companyLogo = policy?.logo || logo;
+  const policyLogoUrl = policy?.logo as string | undefined;
 
   // Account details from policy
   const accountName = policy?.bankAccountName || policy?.companyName || FALLBACK_ACCOUNT_NAME;
@@ -207,14 +206,20 @@ export default function ViewQuotationPage() {
         <div className='bg-white p-8 rounded-lg shadow-sm min-w-0 w-full'>
           {/* Header with Logo + Company Name + HR */}
           <div className='mb-8'>
-            <div className='flex items-center gap-4 mb-4'>
-              <Image
-                src={companyLogo}
-                alt='Company Logo'
-                className='h-12 w-auto'
-                objectFit='contain'
-              />
-              <h1 className='text-xl font-bold text-gray-900'>{footerCompanyName}</h1>
+            <div className='flex items-center gap-4 mb-4 flex-wrap'>
+              {policyLogoUrl ? (
+                <Image
+                  src={policyLogoUrl}
+                  alt='Company Logo'
+                  className='h-12 w-auto'
+                  objectFit='contain'
+                />
+              ) : (
+                <CrafthomesWordmark className='text-xl' />
+              )}
+              {(policyLogoUrl || policy?.companyName) && (
+                <h1 className='text-xl font-bold text-gray-900'>{footerCompanyName}</h1>
+              )}
             </div>
             <hr className='border-gray-300' />
           </div>

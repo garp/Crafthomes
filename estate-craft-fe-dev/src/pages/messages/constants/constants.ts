@@ -14,7 +14,7 @@ export const messageTypeOptions = [
 ];
 
 export const projectOptions = [
-  { value: 'estate-craft', label: 'Estate Craft' },
+  { value: 'estate-craft', label: 'Crafthomes' },
   { value: 'property-management', label: 'Property Management' },
   { value: 'construction', label: 'Construction' },
   { value: 'renovation', label: 'Renovation' },

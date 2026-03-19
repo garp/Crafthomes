@@ -16,8 +16,8 @@ const prisma = new PrismaClient();
  *              Interior Finishing, Waterproofing, Fire Safety, Security Systems
  *
  * Super Admin User:
- *   Email: admin@modora.app
- *   Password: Password@123
+ *   Email: admin@crafthome.com
+ *   Password: admin@123
  */
 
 const bytiveDesignations = [
@@ -109,16 +109,10 @@ const KNOWN_DESIGNATION_NAMES = [
 const SEED_DATA = {
 	users: [
 		{
-			name: 'Kavin Sharma',
-			email: 'kavin@bytive.in',
-			phoneNumber: '+919999999999',
-			password: 'Bytive@100',
-		},
-		{
-			name: 'Padma',
-			email: 'admin@modora.app',
-			phoneNumber: '+919876543210',
-			password: 'Modora@2021',
+			name: 'Crafthomes Admin',
+			email: 'admin@crafthome.com',
+			phoneNumber: '+919000000000',
+			password: 'admin@123',
 		},
 	],
 	roles: [

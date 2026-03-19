@@ -1,6 +1,6 @@
 import { useFormikContext } from 'formik';
 import type { TInvoiceFormData } from '../../../../types/payment.types';
-import logo from '../../../../assets/img/logo.png';
+import { CrafthomesWordmark } from '../../../../components';
 import { format } from 'date-fns';
 import { prefixCurrencyInPrice } from '../../../../utils/helper';
 
@@ -20,14 +20,14 @@ export default function InvoicePreview() {
       <div className='space-y-6 flex-1'>
         {/* Header */}
         <div className='border-b pb-4'>
-          <img src={logo} alt='Estate Craft' className='h-12 w-auto mb-2' />
+          <CrafthomesWordmark className='text-2xl mb-2 block' />
           <div className='text-2xl font-bold'>{prefixCurrencyInPrice(total, 'INR')}</div>
         </div>
 
         {/* Invoice Details */}
         <div className='space-y-2'>
           <p className='text-sm font-bold text-gray-600'>
-            Invoice from Estate Craft Interior Design Studio
+            Invoice from Crafthomes Interior Design Studio
           </p>
           <div className='grid grid-cols-2 gap-4 text-sm'>
             {values.invoiceNumber && (

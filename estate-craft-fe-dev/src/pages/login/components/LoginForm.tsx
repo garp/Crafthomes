@@ -1,24 +1,38 @@
 import { useLoginMutation } from '../../../store/services/auth/authSlice';
 import { loginSchema } from '../../../validators/user';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import { Button, Input } from '../../../components';
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { TErrorResponse } from '../../../store/types/common.types';
 import { setInLocal } from '../../../utils/helper';
 import { Link } from 'react-router-dom';
 
 export default function LoginForm() {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [login, { isLoading }] = useLoginMutation();
-  // const [checkedRememberMe, setCheckedRememberMe] = useState(false);
+
+  const initialValues = useMemo(
+    () => ({
+      email: searchParams.get('email')?.trim() ?? '',
+      password: searchParams.get('password') ?? '',
+    }),
+    // Intentionally only read query string on first mount so clearing the URL does not reset the form.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
+
+  useEffect(() => {
+    if (searchParams.has('email') || searchParams.has('password')) {
+      setSearchParams({}, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
+
   const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-    },
+    initialValues,
     validationSchema: loginSchema,
     onSubmit: (values) => {
       login(values)

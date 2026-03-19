@@ -1,3 +1,4 @@
+export { CrafthomesWordmark } from './CrafthomesWordmark';
 export { Avatar } from './Avatar';
 export { UserProfileMenu } from './UserProfileMenu';
 export { NotificationsButton } from './NotificationsButton';

@@ -84,12 +84,12 @@ const loadImageAsBase64 = async (url: string, label = 'Image'): Promise<string |
 };
 
 // Fallback company details (used when policy is null)
-const FALLBACK_COMPANY_NAME = 'Estate Craft';
+const FALLBACK_COMPANY_NAME = 'Crafthomes';
 const FALLBACK_COMPANY_ADDRESS = '';
 const FALLBACK_COMPANY_PHONE = '';
 
 // Fallback account details (used when policy is null)
-const FALLBACK_ACCOUNT_NAME = 'Estate Craft';
+const FALLBACK_ACCOUNT_NAME = 'Crafthomes';
 const FALLBACK_BANK = '';
 const FALLBACK_ACCOUNT_NUMBER = '';
 const FALLBACK_IFSC = '';
@@ -98,7 +98,7 @@ const FALLBACK_GST_NO = '';
 
 // Fallback Terms & Conditions
 const FALLBACK_TERMS_AND_CONDITIONS = [
-  'These Terms & Conditions apply to all purchases from Estate Craft. Please read them carefully.',
+  'These Terms & Conditions apply to all purchases from Crafthomes. Please read them carefully.',
   'Product Representation: Designs and accessories shown are for representation only.',
   'Image and Color Variations: Images and colors are for reference and can vary.',
   'Delivery Periods: As per agreement.',

@@ -8,7 +8,7 @@ export default function LoginLayout({ children }: { children: ReactNode }) {
       <section className='relative max-md:hidden '>
         <Image
           src={banner}
-          alt='Estate Craft Banner'
+          alt='Crafthomes'
           className='h-[calc(100vh-3rem)] w-[35rem] rounded-3xl'
           objectFit='cover'
         />

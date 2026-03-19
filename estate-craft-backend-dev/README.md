@@ -10,8 +10,8 @@ Seed the database with an initial Super Admin user.
 
 This script creates:
 - **Role:** Super Admin
-- **Designation:** Founder
-- **User:** Kevin (admin@modora.app)
+- **Designation:** Depends on designation set (e.g. Admin for Bytive, Founder for Modora)
+- **User:** Crafthomes Admin (admin@crafthome.com)
 
 #### Prerequisites
 
@@ -32,10 +32,10 @@ npm run seed
 
 After seeding, use these credentials to login:
 
-| Field    | Value            |
-|----------|------------------|
-| Email    | admin@modora.app |
-| Password | Password@123     |
+| Field    | Value               |
+|----------|---------------------|
+| Email    | admin@crafthome.com |
+| Password | admin@123           |
 
 > **Note:** The seed is idempotent - running it multiple times won't create duplicate records.
 

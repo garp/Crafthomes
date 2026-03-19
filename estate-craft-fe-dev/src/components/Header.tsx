@@ -1,7 +1,6 @@
-import { NotificationsButton, UserProfileMenu } from './common';
+import { CrafthomesWordmark, NotificationsButton, UserProfileMenu } from './common';
 
 import { motion } from 'framer-motion';
-import logo from '../assets/img/logo.png';
 import { getUser } from '../utils/auth';
 import { parseSnakeCaseString } from '../utils/helper';
 
@@ -49,12 +48,10 @@ export const Header = () => {
       variants={headerVariants}
     >
       <motion.div className='flex items-center' variants={itemVariants}>
-        <motion.img
-          src={logo}
-          alt='Logo'
-          className='w-44 h-auto cursor-pointer shrink-0'
+        <motion.div
+          className='cursor-pointer shrink-0'
           whileHover={{
-            opacity: 0.8,
+            opacity: 0.85,
             scale: 1.02,
           }}
           whileTap={{ scale: 0.98 }}
@@ -62,7 +59,9 @@ export const Header = () => {
             duration: 0.2,
             ease: 'easeInOut',
           }}
-        />
+        >
+          <CrafthomesWordmark className='text-2xl md:text-[1.65rem]' />
+        </motion.div>
       </motion.div>
 
       <div className='flex items-center gap-3 md:gap-4'>
