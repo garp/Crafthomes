@@ -2,7 +2,7 @@ import { IconExternalLink } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 import { Button, Image } from '../base';
 import { Switch } from '@mantine/core';
-import GoogleDrive from '../../../src/assets/img/driveLogo.png';
+import GoogleDrive from '../../assets/img/driveLogo.png';
 
 export default function IntegrationCard() {
   return (

@@ -14,7 +14,7 @@ import CustomCheckbox from '../base/CustomCheckbox';
 
 import { cn, debounce } from '../../utils/helper';
 import type { TOption, TOptionCompProps } from '../../types/project';
-import Spinner from '../common/loaders/Spinner';
+import Spinner from './loaders/Spinner';
 
 type TProjectPhaseSelectorProps<T> = {
   setValue: (val: string[]) => void;

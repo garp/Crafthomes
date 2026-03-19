@@ -1,8 +1,8 @@
 import { Form, Formik } from 'formik';
 
-import { Button } from '../../components/base';
-import FormLabel from '../../components/base/FormLabel';
-import FormInput from '../../components/base/FormInput';
+import { Button } from '../base';
+import FormLabel from '../base/FormLabel';
+import FormInput from '../base/FormInput';
 import {
   createProjectTypeSchema,
   type TCreateProjectTypeFormData,

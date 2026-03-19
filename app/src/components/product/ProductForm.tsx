@@ -1,9 +1,9 @@
 import { Formik, Form } from 'formik';
-import { Button } from '../../components';
-import FormRow from '../../components/base/FormRow';
-import FormSelect from '../../components/base/FormSelect';
-import FormTextArea from '../../components/base/FormTextArea';
-import FormInput from '../../components/base/FormInput';
+import { Button } from '..';
+import FormRow from '../base/FormRow';
+import FormSelect from '../base/FormSelect';
+import FormTextArea from '../base/FormTextArea';
+import FormInput from '../base/FormInput';
 // import FileUpload from '../../components/base/FileUpload';
 import {
   createProductSchema,

@@ -3,14 +3,14 @@ import { useCreateProjectMutation } from '../../store/services/project/projectSl
 import type { TErrorResponse } from '../../store/types/common.types';
 import type { TCreateProjectSidebarProps, TProjectFormInitialValues } from '../../types/project';
 // import { type TCreateProjectFormData } from '../../validators/project';
-import SidebarModal from '../../components/base/SidebarModal';
+import SidebarModal from '../base/SidebarModal';
 import ProjectForm from './ProjectForm';
 import type { TOnSubmitArgs } from '../../types/common.types';
 import type { TCurrency } from '../../store/types/project.types';
 import { useState } from 'react';
 import { useDisclosure } from '@mantine/hooks';
-import ModalWrapper from '../../components/base/ModalWrapper';
-import { Button } from '../../components/base';
+import ModalWrapper from '../base/ModalWrapper';
+import { Button } from '../base';
 
 export default function AddProjectSidebar({ isOpen, onClose }: TCreateProjectSidebarProps) {
   const [createProject, { isLoading: isSubmitting }] = useCreateProjectMutation();

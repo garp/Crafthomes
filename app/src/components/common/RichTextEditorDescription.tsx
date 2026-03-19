@@ -10,7 +10,7 @@ import CodeBlock from '@tiptap/extension-code-block';
 import { Table, TableRow, TableHeader, TableCell } from '@tiptap/extension-table';
 import TaskList from '@tiptap/extension-task-list';
 import TaskItem from '@tiptap/extension-task-item';
-import { CommentMentionsExtension } from '../common/Task/CustomMentionExtention';
+import { CommentMentionsExtension } from './Task/CustomMentionExtention';
 import { useLazyGetUsersQuery } from '../../store/services/user/userSlice';
 import { useUploadFilesMutation } from '../../store/services/upload/upload';
 import { useEditor } from '@tiptap/react';

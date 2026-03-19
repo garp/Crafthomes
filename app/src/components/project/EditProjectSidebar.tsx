@@ -3,7 +3,7 @@ import { useEditProjectMutation } from '../../store/services/project/projectSlic
 import type { TErrorResponse } from '../../store/types/common.types';
 
 // import { type TCreateProjectFormData } from '../../validators/project';
-import SidebarModal from '../../components/base/SidebarModal';
+import SidebarModal from '../base/SidebarModal';
 import ProjectForm from './ProjectForm';
 import type { TEditFormSidebarProps, TOnSubmitArgs } from '../../types/common.types';
 import type { TProject } from '../../store/types/project.types';

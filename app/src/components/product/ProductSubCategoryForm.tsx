@@ -1,10 +1,10 @@
 'use client';
 
 import { Formik, Form } from 'formik';
-import { Button } from '../../components';
-import FormInput from '../../components/base/FormInput';
-import FormTextArea from '../../components/base/FormTextArea';
-import FormAttachment from '../../components/base/FormAttachment';
+import { Button } from '..';
+import FormInput from '../base/FormInput';
+import FormTextArea from '../base/FormTextArea';
+import FormAttachment from '../base/FormAttachment';
 import type { TFormProps } from '../../types/common.types';
 import {
   createProductSubCategorySchema,
