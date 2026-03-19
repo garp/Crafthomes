@@ -1,0 +1,53 @@
+model Attachment {
+  id             String           @id @default(uuid())
+  name           String
+  url            String
+  key            String?
+  mimeType       String?
+  size           Int?
+  taskId         String?
+  subTaskId      String?
+  projectId      String?
+  commentId      String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  type           String?
+  folderId       String?
+  createdBy      String?
+  description    String?
+  status         AttachmentStatus @default(ACTIVE)
+  updatedBy      String?
+  snagId                  String?
+  momId                   String?
+  siteVisitId             String?
+  siteVisitTaskSnapshotId String?
+  comment                 Comment?                 @relation(fields: [commentId], references: [id])
+  siteVisit               SiteVisit?               @relation(fields: [siteVisitId], references: [id], onDelete: SetNull)
+  siteVisitTaskSnapshot   SiteVisitTaskSnapshot?   @relation(fields: [siteVisitTaskSnapshotId], references: [id], onDelete: Cascade)
+  CreatedBy      User?            @relation("createdByUser", fields: [createdBy], references: [id])
+  folder         Folder?          @relation(fields: [folderId], references: [id])
+  mom            MOM?             @relation(fields: [momId], references: [id])
+  project        Project?         @relation(fields: [projectId], references: [id])
+  snag           Snag?            @relation(fields: [snagId], references: [id])
+  subTask        SubTask?         @relation(fields: [subTaskId], references: [id])
+  task                         Task?                        @relation(fields: [taskId], references: [id])
+  UpdatedBy                    User?                        @relation("updatedByUser", fields: [updatedBy], references: [id])
+  quotationItems               QuotationItem[]
+  siteVisitGalleryAttachments   SiteVisitGalleryAttachment[]
+
+  @@index([taskId, createdAt])
+  @@index([subTaskId, createdAt])
+  @@index([projectId, createdAt])
+  @@index([commentId, createdAt])
+  @@index([folderId, createdAt])
+  @@index([snagId, createdAt])
+  @@index([momId, createdAt])
+  @@index([siteVisitId, createdAt])
+  @@index([siteVisitTaskSnapshotId, createdAt])
+}
+
+enum AttachmentStatus {
+  ACTIVE
+  ARCHIVED
+  DELETED
+}

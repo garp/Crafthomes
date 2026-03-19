@@ -1,0 +1,43 @@
+model ProjectTypeGroup {
+  id                    String                        @id @default(uuid())
+  sNo                   Int                           @default(autoincrement())
+  name                  String                        @unique
+  description           String?
+  createdAt             DateTime                      @default(now())
+  updatedAt             DateTime                      @updatedAt
+  createdBy             String?
+  status                Status                        @default(ACTIVE)
+  updatedBy             String?
+  ProjectTypeGroupOrder ProjectTypeGroupOrder[]
+  projectTypes          ProjectTypeGroupProjectType[]
+
+  @@index([name, status, createdAt])
+  @@index([sNo])
+}
+
+model ProjectTypeGroupProjectType {
+  id                 String           @id @default(uuid())
+  sNo                Int              @default(autoincrement())
+  projectTypeGroupId String
+  projectTypeId      String
+  ProjectTypeGroup   ProjectTypeGroup @relation(fields: [projectTypeGroupId], references: [id], onDelete: Cascade)
+  ProjectType        ProjectType      @relation(fields: [projectTypeId], references: [id], onDelete: Cascade)
+
+  @@unique([projectTypeGroupId, projectTypeId])
+  @@index([projectTypeGroupId, projectTypeId])
+  @@index([sNo])
+}
+
+model ProjectTypeGroupOrder {
+  id                 String           @id @default(uuid())
+  sNo                Int              @default(autoincrement())
+  order              Int
+  projectTypeGroupId String
+  projectTypeId      String
+  ProjectTypeGroup   ProjectTypeGroup @relation(fields: [projectTypeGroupId], references: [id], onDelete: Cascade)
+  ProjectType        ProjectType      @relation(fields: [projectTypeId], references: [id], onDelete: Cascade)
+
+  @@unique([projectTypeGroupId, projectTypeId])
+  @@index([projectTypeGroupId, projectTypeId])
+  @@index([sNo])
+}

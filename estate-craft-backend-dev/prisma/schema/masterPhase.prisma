@@ -1,0 +1,20 @@
+model MasterPhase {
+  id                    String                   @id @default(uuid())
+  name                  String                   @unique
+  description           String?
+  createdAt             DateTime                 @default(now())
+  updatedAt             DateTime                 @updatedAt
+  createdBy             String?
+  status                Status                   @default(ACTIVE)
+  updatedBy             String?
+  sNo                   Int                      @default(autoincrement())
+  MasterPhaseMasterTask MasterPhaseMasterTask[]
+  MasterPhaseOrder      MasterPhaseOrder[]
+  MasterTaskOrder       MasterTaskOrder[]
+  phases                Phase[]
+  PhaseOrder            PhaseOrder[]
+  projectType           ProjectTypeMasterPhase[]
+
+  @@index([name, status, createdAt])
+  @@index([sNo])
+}

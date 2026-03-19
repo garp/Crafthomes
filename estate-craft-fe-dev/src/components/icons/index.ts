@@ -1,0 +1,50 @@
+export { SummaryIcon } from './SummaryIcon';
+export { ProjectsIcon } from './ProjectsIcon';
+export { TasksIcon } from './TasksIcon';
+export { CalendarIcon } from './CalendarIcon';
+export { LibrariesIcon } from './LibrariesIcon';
+export { MessagesIcon } from './MessagesIcon';
+export { ClientsIcon } from './ClientsIcon';
+export { VendorsIcon } from './VendorsIcon';
+export { StarIcon } from './StarIcon';
+export { UsersIcon } from './UsersIcon';
+export { SettingsIcon } from './SettingsIcon';
+export { SearchIcon } from './SearchIcon';
+export { NotificationIcon } from './NotificationIcon';
+export { ChatIcon } from './ChatIcon';
+export { ChatIconFilled } from './ChatIconFilled';
+export { ChevronDownIcon } from './ChevronDownIcon';
+export { LogoutIcon } from './LogoutIcon';
+export { OpenIcon } from './OpenIcon';
+export { OverdueIcon } from './OverdueIcon';
+export { InProgressIcon } from './InProgressIcon';
+export { CompletedIcon } from './CompletedIcon';
+export { DealIcon } from './DealIcon';
+export { AppointmentIcon } from './AppointmentIcon';
+export { ClientIcon } from './ClientIcon';
+export { ProjectIcon } from './ProjectIcon';
+export { PaymentIcon } from './PaymentIcon';
+export { ProgressIcon } from './ProgressIcon';
+export { GridViewIcon } from './GridViewIcon';
+export { ListViewIcon } from './ListViewIcon';
+export { StepArrowIcon } from './StepArrowIcon';
+export { ClockIcon } from './ClockIcon';
+export { UserIcon } from './UserIcon';
+export { DocumentIcon } from './DocumentIcon';
+export { UnreadEmailIcon } from './UnreadEmailIcon';
+export { ReadEmailIcon } from './ReadEmailIcon';
+export { UserProfileIcon } from './UserProfileIcon';
+export { RolePermissionIcon } from './RolePermissionIcon';
+export { PhaseManagementIcon } from './PhaseManagementIcon';
+export { ProjectSettingsIcon } from './ProjectSettingsIcon';
+export { IntegrationsIcon } from './IntegrationsIcon';
+export { EditIcon } from './EditIcon';
+export { DeleteIcon } from './DeleteIcon';
+export { default as TimelineTemplateIcon } from './TimelineTemplateIcon';
+
+// Export the common IconProps interface for external use
+export interface IconProps {
+  className?: string;
+  size?: number;
+  color?: string;
+}

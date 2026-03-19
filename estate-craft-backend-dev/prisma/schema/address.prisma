@@ -1,0 +1,25 @@
+model Address {
+  id          String    @id @default(uuid())
+  sNo         Int       @default(autoincrement())
+  clientId    String?
+  building    String
+  street      String?
+  locality    String?
+  city        String?
+  state       String
+  landmark    String?
+  country     String    @default("INDIA")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  createdBy   String?
+  updatedBy   String?
+  status      Status    @default(ACTIVE)
+  label       String?
+  vendorId    String?
+  pincodeCode Int
+  pincodeId   String?
+  client      Client?   @relation(fields: [clientId], references: [id])
+  pincode     Pincode?  @relation(fields: [pincodeId], references: [id])
+  vendor      Vendor?   @relation(fields: [vendorId], references: [id])
+  projects    Project[]
+}

@@ -1,0 +1,12 @@
+node_modules
+dist
+coverage
+/.eslintrc.js
+src/constants/checklists/*
+./src/checklistUtils/*
+/src/checklistUtils/*
+./src/uplaods/*
+/src/uploads/*
+/src/uploads
+src/uploads/*
+public

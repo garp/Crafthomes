@@ -1,0 +1,26 @@
+model Policy {
+  id                 String      @id @default(uuid())
+  sNo                Int         @default(autoincrement())
+  logo               String
+  companyName        String
+  address            String
+  pincode            Int
+  city               String
+  state              String
+  country            String
+  gstIn              String?
+  taxId              String?
+  bankAccountNumber  String?
+  bankAccountName    String?
+  website            String?
+  termsAndConditions String?
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+  bankBranch         String?
+  bankIFSC           String?
+  bankName           String?
+  Quotation          Quotation[]
+
+  @@index([companyName, createdAt])
+  @@index([sNo])
+}

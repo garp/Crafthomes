@@ -1,0 +1,41 @@
+model Specialized {
+  id        String              @id @default(uuid())
+  name      String
+  createdAt DateTime            @default(now())
+  createdBy String?
+  status    Status              @default(ACTIVE)
+  updatedAt DateTime            @updatedAt
+  updatedBy String?
+  sNo       Int                 @default(autoincrement())
+  vendors   VendorSpecialized[]
+}
+
+model Vendor {
+  id              String              @id @default(uuid())
+  name            String
+  phoneNumber     String
+  email           String
+  status          Status              @default(ACTIVE)
+  createdAt       DateTime            @default(now())
+  createdBy       String?
+  updatedAt       DateTime            @updatedAt
+  updatedBy       String?
+  sNo             Int                 @default(autoincrement())
+  panDetails      String?
+  Address         Address[]
+  snags           Snag[]
+  user            User[]
+  specializations VendorSpecialized[]
+  masterItems     masterItem[]
+}
+
+model VendorSpecialized {
+  id            String      @id @default(uuid())
+  vendorId      String
+  specializedId String
+  createdAt     DateTime    @default(now())
+  specialized   Specialized @relation(fields: [specializedId], references: [id], onDelete: Cascade)
+  vendor        Vendor      @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  @@unique([vendorId, specializedId])
+}

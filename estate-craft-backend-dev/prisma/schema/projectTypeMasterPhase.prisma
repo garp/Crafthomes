@@ -1,0 +1,11 @@
+model ProjectTypeMasterPhase {
+  id            String      @id @default(uuid())
+  sNo           Int         @default(autoincrement())
+  projectTypeId String
+  masterPhaseId String
+  MasterPhase   MasterPhase @relation(fields: [masterPhaseId], references: [id])
+  ProjectType   ProjectType @relation(fields: [projectTypeId], references: [id])
+
+  @@index([projectTypeId, masterPhaseId])
+  @@index([sNo])
+}

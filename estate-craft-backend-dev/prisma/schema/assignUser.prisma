@@ -1,0 +1,11 @@
+model AssignUser {
+  id        String   @id @default(uuid())
+  userId    String?
+  projectId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  project   Project? @relation(fields: [projectId], references: [id])
+  user      User?    @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}

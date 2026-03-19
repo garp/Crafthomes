@@ -1,0 +1,24 @@
+model Deliverable {
+  id                String            @id @default(uuid())
+  sNo               Int               @default(autoincrement())
+  taskId            String
+  projectId         String
+  status            Status?           @default(ACTIVE)
+  deliverableStatus DeliverableStatus @default(NOT_STARTED)
+  updatedAt         DateTime          @updatedAt
+  createdAt         DateTime          @default(now())
+  createdBy         String?
+  updatedBy         String?
+  createdByUser     User?             @relation("createdByUser", fields: [createdBy], references: [id])
+  project           Project           @relation(fields: [projectId], references: [id])
+  task              Task              @relation(fields: [taskId], references: [id])
+  updatedByUser     User?             @relation("updatedByUser", fields: [updatedBy], references: [id])
+}
+
+enum DeliverableStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+  IN_REVIEW
+  DELAYED
+}

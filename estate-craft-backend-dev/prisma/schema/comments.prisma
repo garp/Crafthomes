@@ -1,0 +1,19 @@
+model Comment {
+  id            String       @id @default(uuid())
+  createdAt     DateTime     @default(now())
+  createdBy     String
+  taskId        String?
+  subTaskId     String?
+  sNo           Int          @default(autoincrement())
+  content       String
+  status        Status       @default(ACTIVE)
+  updatedAt     DateTime?    @updatedAt
+  updatedBy     String?
+  attachments   Attachment[]
+  createdByUser User         @relation(fields: [createdBy], references: [id])
+  subTask       SubTask?     @relation(fields: [subTaskId], references: [id])
+  task          Task?        @relation(fields: [taskId], references: [id])
+
+  @@index([taskId, createdAt])
+  @@index([subTaskId, createdAt])
+}

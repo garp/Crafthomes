@@ -1,0 +1,13 @@
+model TaskPredecessor {
+  id                String   @id @default(uuid())
+  taskId            String
+  predecessorTaskId String
+  createdAt         DateTime @default(now())
+  createdBy         String?
+  predecessorTask   Task     @relation("PredecessorOf", fields: [predecessorTaskId], references: [id], onDelete: Cascade)
+  task              Task     @relation("TaskPredecessors", fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@unique([taskId, predecessorTaskId])
+  @@index([taskId])
+  @@index([predecessorTaskId])
+}

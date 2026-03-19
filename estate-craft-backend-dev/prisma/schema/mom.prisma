@@ -1,0 +1,41 @@
+model MOM {
+  id            String         @id @default(uuid())
+  sNo           Int            @default(autoincrement())
+  projectId     String
+  title         String
+  startDate     DateTime?
+  heldOn        String?
+  purpose       String?
+  createdAt     DateTime       @default(now())
+  createdBy     String
+  updatedAt     DateTime?      @updatedAt
+  updatedBy     String?
+  status        Status         @default(ACTIVE)
+  momStatus     MOMStatus      @default(PENDING)
+  attachments   Attachment[]
+  createdByUser User           @relation("createdByUser", fields: [createdBy], references: [id])
+  project       Project        @relation(fields: [projectId], references: [id])
+  updatedByUser User?          @relation("updatedByUser", fields: [updatedBy], references: [id])
+  momAttendees  momAttendees[]
+
+  @@index([projectId, momStatus])
+  @@index([status, createdAt])
+}
+
+model momAttendees {
+  id     String @id @default(uuid())
+  momId  String
+  userId String
+  mom    MOM    @relation(fields: [momId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@unique([momId, userId])
+  @@index([userId])
+}
+
+enum MOMStatus {
+  PENDING
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+}

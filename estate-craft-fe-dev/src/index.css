@@ -1,0 +1,126 @@
+@import 'tailwindcss';
+
+::-webkit-scrollbar {
+  /* display: none; */
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+@font-face {
+  font-family: NotoSerif;
+  src: url('./assets/fonts/notoSerif.ttf');
+}
+@layer base {
+  * {
+    @apply border-border-light;
+  }
+}
+@theme {
+  /* color */
+  --color-border-light: #e0e5ef;
+  --color-bg-light: #f3f4f7;
+  --color-bg-secondary: #e2e8f0;
+  --color-text-secondary: #4e4e4e;
+  --color-white: #ffffff;
+  --color-bg: #ffffff;
+  --color-border-hover: #d1d5db;
+  --color-button-bg: #232323;
+  --color-text-subHeading: #727272;
+  --color-bg-primary: #1f1f1f;
+  --color-slate300: #cbd5e1;
+  /* letter-spacing */
+  --tracking-light: -0.4px;
+  --tracking-wide: 0.3px;
+
+  /* font-family */
+  --font-inter: 'Inter', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
+  --font-din: 'DIN', sans-serif;
+  --font-notoSerif: NotoSerif, 'sans-serif';
+  /* shadow */
+  --shadow-sh1: rgba(99, 99, 99, 0.1) 0px 2px 6px 0px;
+}
+.ProseMirror:focus {
+  height: 100%;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.mantine-Pagination-control[data-active] {
+  background-color: #1f1f1f !important;
+  border-color: black !important;
+  color: white !important;
+}
+.ProseMirror ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.ProseMirror ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+}
+
+.ProseMirror li {
+  margin: 0.25rem 0;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Circular spinner (scoped) */
+.ec-circular-spinner {
+  width: 3.25em;
+  transform-origin: center;
+  animation: ec-rotate4 2s linear infinite;
+}
+
+.ec-circular-spinner circle {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: ec-dash4 1.5s ease-in-out infinite;
+}
+
+@keyframes ec-rotate4 {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ec-dash4 {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 90, 200;
+    stroke-dashoffset: -35px;
+  }
+
+  100% {
+    stroke-dashoffset: -125px;
+  }
+}

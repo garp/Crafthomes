@@ -1,0 +1,44 @@
+model Category {
+  id          String        @id @default(uuid())
+  sNo         Int           @default(autoincrement())
+  name        String
+  description String?
+  media       String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime?     @updatedAt
+  createdBy   String?
+  updatedBy   String?
+  status      Status        @default(ACTIVE)
+  SubCategory SubCategory[]
+  masterItems masterItem[]
+}
+
+model SubCategory {
+  id          String            @id @default(uuid())
+  sNo         Int               @default(autoincrement())
+  name        String
+  description String?
+  categoryId  String
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime?         @updatedAt
+  createdBy   String?
+  updatedBy   String?
+  status      Status            @default(ACTIVE)
+  brandId     String?
+  media       Json[]
+  brand       SubCategoryBrand? @relation(fields: [brandId], references: [id])
+  category    Category          @relation(fields: [categoryId], references: [id])
+  masterItems masterItem[]
+}
+
+model SubCategoryBrand {
+  id          String        @id @default(uuid())
+  sNo         Int           @default(autoincrement())
+  name        String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime?     @updatedAt
+  createdBy   String?
+  updatedBy   String?
+  status      Status        @default(ACTIVE)
+  SubCategory SubCategory[]
+}

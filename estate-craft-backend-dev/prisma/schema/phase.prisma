@@ -1,0 +1,24 @@
+model Phase {
+  id                 String               @id @default(uuid())
+  sNo                Int                  @default(autoincrement())
+  name               String
+  description        String?
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  createdBy          String?
+  updatedBy          String?
+  status             Status               @default(ACTIVE)
+  masterPhaseId      String?
+  projectId          String
+  timelineId         String?
+  masterPhase        MasterPhase?         @relation(fields: [masterPhaseId], references: [id])
+  project            Project              @relation(fields: [projectId], references: [id])
+  timeline           Timeline?            @relation(fields: [timelineId], references: [id])
+  PhaseOrder         PhaseOrder[]
+  Task               Task[]
+  TimeLineTaskOrder  TimeLineTaskOrder[]
+  TimelinePhaseOrder TimelinePhaseOrder[]
+
+  @@index([projectId])
+  @@index([timelineId])
+}

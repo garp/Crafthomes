@@ -1,0 +1,41 @@
+model Timeline {
+  id                 String               @id @default(uuid())
+  sNo                Int                  @default(autoincrement())
+  name               String
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  createdBy          String?
+  updatedBy          String?
+  status             Status               @default(ACTIVE)
+  timelineStatus     TimelineStatus       @default(PENDING)
+  projectId          String
+  createdOn          DateTime             @default(now())
+  plannedStart       DateTime?
+  plannedEnd         DateTime?
+  sentToId           String?
+  order              Int                  @default(0)
+  Phase              Phase[]
+  TimeLineTaskOrder  TimeLineTaskOrder[]
+  createdByUser      User?                @relation("UserCreatedTimelines", fields: [createdBy], references: [id])
+  project            Project              @relation(fields: [projectId], references: [id])
+  sentTo             User?                @relation("UserSentTo", fields: [sentToId], references: [id])
+  TimelinePhaseOrder TimelinePhaseOrder[]
+
+  @@index([projectId, order])
+}
+
+enum TimelineStatus {
+  PENDING
+  PENDING_APPROVAL
+  IN_PROGRESS
+  COMPLETED
+  ARCHIVED
+  DELETED
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+

@@ -1,0 +1,12 @@
+model TaskAssignee {
+  id        String   @id @default(uuid())
+  sNo       Int      @default(autoincrement())
+  taskId    String
+  userId    String
+  createdAt DateTime @default(now())
+  createdBy String?
+  Task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([taskId, userId])
+}

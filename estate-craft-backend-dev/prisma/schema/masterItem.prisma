@@ -1,0 +1,40 @@
+model masterItem {
+  id            String          @id @default(uuid())
+  sNo           Int             @default(autoincrement())
+  name          String
+  description   String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime?       @updatedAt
+  createdBy     String?
+  updatedBy     String?
+  status        Status          @default(ACTIVE)
+  currency      Currency        @default(INR)
+  unit          Unit?           @relation("MasterItemUnit", fields: [unitId], references: [id])
+  unitId        String?
+  material      String?
+  categoryId    String?
+  colorCode     String?
+  materialCode  String?
+  subCategoryId String?
+  tags          String[]
+  vendorId      String?
+  mrp           Int?
+  primaryFile   Json[]
+  secondaryFile Json[]
+  materialFile  Json[]
+  QuotationItem QuotationItem[]
+  category      Category?       @relation(fields: [categoryId], references: [id])
+  subCategory   SubCategory?    @relation(fields: [subCategoryId], references: [id])
+  vendor        Vendor?         @relation(fields: [vendorId], references: [id])
+}
+
+model Unit {
+  id              String          @id @default(uuid())
+  name            String          @unique
+  displayName     String
+  status          Status          @default(ACTIVE)
+  masterItems     masterItem[]    @relation("MasterItemUnit")
+  quotationItems  QuotationItem[] @relation("QuotationItemUnit")
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime?       @updatedAt
+}

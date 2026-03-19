@@ -1,0 +1,5 @@
+/* Mantine dates: make "outside month" days black (not dimmed) */
+button[data-outside] {
+  color: #000 !important;
+  opacity: 1 !important;
+}

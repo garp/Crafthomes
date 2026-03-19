@@ -1,0 +1,23 @@
+model Pincode {
+  id         String    @id @default(uuid())
+  sNo        Int       @default(autoincrement())
+  pincode    Int
+  state      String
+  city       String
+  district   String
+  circle     String?
+  region     String?
+  division   String?
+  office     String?
+  officeType String?
+  delivery   String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  status     Status    @default(ACTIVE)
+  addresses  Address[]
+
+  @@index([pincode])
+  @@index([state])
+  @@index([district])
+  @@index([city])
+}

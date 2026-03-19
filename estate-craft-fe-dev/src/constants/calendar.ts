@@ -1,0 +1,40 @@
+export const MONTH_NAMES = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+] as const;
+
+export const DAY_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as const;
+
+export const SAMPLE_CALENDAR_EVENTS = {
+  1: 3,
+  2: 1,
+  3: 3,
+  7: 2,
+  8: 3,
+  9: 2,
+  12: 2,
+  13: 1,
+  15: 1,
+  16: 2,
+  18: 2,
+  19: 1,
+  20: 2,
+  21: 1,
+  22: 1,
+  23: 2,
+  24: 1,
+  26: 2,
+  28: 1,
+  29: 2,
+  30: 2,
+} as const;

@@ -1,0 +1,11 @@
+model Role {
+  id           String         @id @default(uuid())
+  name         String         @unique
+  active       Boolean        @default(true)
+  sNo          Int            @default(autoincrement())
+  permissions  Permission[]
+  sidebar      Sidebar?
+  users        User[]
+  moduleAccess ModuleAccess[]
+}
+

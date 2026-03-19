@@ -1,0 +1,14 @@
+model MasterTaskOrder {
+  id            String      @id @default(uuid())
+  sNo           Int         @default(autoincrement())
+  order         Int
+  masterPhaseId String
+  masterTaskId  String
+  projectTypeId String
+  MasterPhase   MasterPhase @relation(fields: [masterPhaseId], references: [id])
+  MasterTask    MasterTask  @relation(fields: [masterTaskId], references: [id])
+  ProjectType   ProjectType @relation(fields: [projectTypeId], references: [id])
+
+  @@index([projectTypeId, masterPhaseId, masterTaskId])
+  @@index([sNo])
+}

@@ -1,0 +1,66 @@
+model Project {
+  id                   String        @id @default(uuid())
+  name                 String
+  clientId             String?
+  projectTypeId        String?
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+  city                 String
+  createdBy            String
+  startDate            DateTime
+  address              String?
+  assignProjectManager String?
+  endDate              DateTime?
+  estimatedBudget      Int?
+  updatedBy            String?
+  projectStatus        ProjectStatus @default(NOT_STARTED)
+  status               Status        @default(ACTIVE)
+  sNo                  Int           @default(autoincrement())
+  currency             Currency      @default(INR)
+  paymentStatus        PaymentStatus @default(PENDING)
+  state                String?
+  assignClientContact  String[]
+  description          String?
+  addressId            String?
+  duration             Int?
+  lastUpdated          DateTime?     @default(now())
+  activities           Activities[]
+  assignUsers          AssignUser[]
+  attachments          Attachment[]
+  Deliverables         Deliverable[]
+  folders              Folder[]
+  MOMs                 MOM[]
+  payments             Payment[]
+  phases               Phase[]
+  tasks                Task[]
+  PhaseOrder           PhaseOrder[]
+  Address              Address?      @relation(fields: [addressId], references: [id])
+  projectManager       User?         @relation("ProjectManager", fields: [assignProjectManager], references: [id])
+  client               Client?       @relation(fields: [clientId], references: [id])
+  projectType          ProjectType?  @relation(fields: [projectTypeId], references: [id])
+  projectUsers         ProjectUser[]
+  quotations           Quotation[]
+  snags                Snag[]
+  timeline             Timeline[]
+  clientContacts       User[]        @relation("ProjectClientContacts")
+  teamMembers          User[]        @relation("ProjectToUser")
+  timesheets           Timesheet[]
+  siteVisits           SiteVisit[]
+
+  @@index([name, status, sNo])
+  @@index([clientId])
+  @@index([projectStatus])
+}
+
+enum ProjectStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  DELAYED
+  COMPLETED
+}
+
+enum Currency {
+  USD
+  INR
+  RMB
+}

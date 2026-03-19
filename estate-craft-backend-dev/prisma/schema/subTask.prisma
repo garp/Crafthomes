@@ -1,0 +1,33 @@
+model SubTask {
+  id                String       @id @default(uuid())
+  sNo               Int          @default(autoincrement())
+  parentTaskId      String
+  name              String
+  assignedBy        String?
+  assignee          String?
+  duration          String?
+  notes             String?
+  priority          Priority?
+  startDate         DateTime?
+  endDate           DateTime?
+  plannedStart      DateTime?
+  plannedEnd        DateTime?
+  description       String?
+  status            Status?      @default(ACTIVE)
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  createdBy         String?
+  updatedBy         String?
+  taskStatus        TaskStatus?  @default(PENDING)
+  unit              String?
+  progress          Int?
+  predecessorTaskId String?
+  Activities        Activities[]
+  attachments       Attachment[]
+  comments          Comment[]
+  assignedByUser    User?        @relation("subTaskAssignedByUser", fields: [assignedBy], references: [id])
+  assigneeUser      User?        @relation("subTaskAssigneeUser", fields: [assignee], references: [id])
+  parentTask        Task         @relation(fields: [parentTaskId], references: [id])
+  predecessorTask   SubTask?     @relation("TaskPredecessor", fields: [predecessorTaskId], references: [id])
+  dependentTasks    SubTask[]    @relation("TaskPredecessor")
+}

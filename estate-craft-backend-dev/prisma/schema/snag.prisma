@@ -1,0 +1,41 @@
+model Snag {
+  id                String       @id @default(uuid())
+  sNo               Int          @default(autoincrement())
+  title             String
+  description       String?
+  location          String?
+  snagCategory      String       @default("OTHER")
+  snagSubCategory   String?      @default("OTHER")
+  priority          Priority?
+  status            Status       @default(ACTIVE)
+  snagStatus        SnagStatus   @default(PENDING)
+  expectedCloseDate DateTime?
+  assignedTo        String?
+  assignedBy        String?
+  createdAt         DateTime     @default(now())
+  createdBy         String
+  updatedAt         DateTime?    @updatedAt
+  updatedBy         String?
+  projectId         String?
+  otherCategory     String?
+  otherSubCategory  String?
+  vendorId          String?
+  attachments       Attachment[]
+  assignedByUser    User?        @relation("assignedByUser", fields: [assignedBy], references: [id])
+  assignedToUser    User?        @relation("assignedToUser", fields: [assignedTo], references: [id])
+  createdByUser     User         @relation("createdByUser", fields: [createdBy], references: [id])
+  project           Project?     @relation(fields: [projectId], references: [id])
+  updatedByUser     User?        @relation("updatedByUser", fields: [updatedBy], references: [id])
+  vendor            Vendor?      @relation(fields: [vendorId], references: [id])
+}
+
+enum SnagStatus {
+  PENDING
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  REJECTED
+  CLOSED
+  TEMPORARY
+  DELETED
+}

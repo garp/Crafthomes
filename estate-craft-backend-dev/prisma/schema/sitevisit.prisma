@@ -1,0 +1,96 @@
+model SiteVisit {
+  id                  String                       @id @default(uuid())
+  projectId           String
+  status              SiteVisitStatus
+  priority            Priority?
+  progress            Int? // completed tasks / total tasks * 100
+  startedAt           DateTime
+  submittedAt         DateTime?
+  reviewedAt          DateTime?
+  summaryText         String?
+  clientSignatureUrl  String?
+  location            String? // site address or location name
+  scheduledEndAt      DateTime?
+  createdAt           DateTime                     @default(now())
+  updatedAt           DateTime                     @updatedAt
+  attachments         Attachment[]
+  taskSnapshots       SiteVisitTaskSnapshot[]
+  engineers           SiteVisitEngineer[]
+  project             Project                      @relation(fields: [projectId], references: [id])
+  siteVisitGalleryCollections SiteVisitGalleryCollection[]
+
+  @@index([projectId])
+  @@index([status])
+}
+
+model SiteVisitEngineer {
+  id          String    @id @default(uuid())
+  siteVisitId String
+  engineerId  String
+  createdAt   DateTime  @default(now())
+  siteVisit   SiteVisit @relation(fields: [siteVisitId], references: [id], onDelete: Cascade)
+  engineer    User      @relation("SiteVisitEngineer", fields: [engineerId], references: [id], onDelete: Cascade)
+
+  @@unique([siteVisitId, engineerId])
+  @@index([siteVisitId])
+  @@index([engineerId])
+}
+
+model SiteVisitTaskSnapshot {
+  id                   String       @id @default(uuid())
+  siteVisitId          String
+  originalTaskId       String?
+  taskTitle            String
+  statusAtVisit        String
+  notes                String?
+  completionPercentage Int?
+  createdAt            DateTime     @default(now())
+  siteVisit            SiteVisit    @relation(fields: [siteVisitId], references: [id], onDelete: Cascade)
+  originalTask         Task?        @relation(fields: [originalTaskId], references: [id], onDelete: SetNull)
+  attachments          Attachment[]
+
+  @@index([siteVisitId])
+  @@index([originalTaskId])
+}
+
+model SiteVisitGalleryCollection {
+  id                          String                        @id @default(uuid())
+  siteVisitId                 String
+  name                        String?
+  notes                       String?
+  createdBy                   String? // engineer who created this gallery
+  displayOrder                Int? // order of gallery in UI (e.g. Before / After)
+  capturedAt                  DateTime? // when photos in this set were taken
+  area                        String? // e.g. "Kitchen", "Exterior"
+  createdAt                   DateTime                      @default(now())
+  siteVisit                   SiteVisit                     @relation(fields: [siteVisitId], references: [id], onDelete: Cascade)
+  createdByUser               User?                         @relation(fields: [createdBy], references: [id], onDelete: SetNull)
+  siteVisitGalleryAttachments SiteVisitGalleryAttachment[]
+
+  @@index([siteVisitId, createdAt])
+  @@index([siteVisitId, displayOrder])
+}
+
+model SiteVisitGalleryAttachment {
+  id                           String                        @id @default(uuid())
+  siteVisitGalleryCollectionId String
+  attachmentId                 String
+  displayOrder                 Int? // order of photo within gallery
+  caption                      String?
+  takenAt                      DateTime? // when photo was taken
+  taskId                       String?
+  createdAt                    DateTime                      @default(now())
+  siteVisitGalleryCollection   SiteVisitGalleryCollection    @relation(fields: [siteVisitGalleryCollectionId], references: [id], onDelete: Cascade)
+  attachment                   Attachment                   @relation(fields: [attachmentId], references: [id], onDelete: Cascade)
+  task                         Task?                        @relation(fields: [taskId], references: [id], onDelete: SetNull)
+
+  @@index([siteVisitGalleryCollectionId, displayOrder])
+  @@index([taskId])
+}
+
+enum SiteVisitStatus {
+  SCHEDULED
+  IN_PROGRESS
+  SUBMITTED
+  REVIEWED
+}

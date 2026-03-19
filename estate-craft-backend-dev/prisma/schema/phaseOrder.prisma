@@ -1,0 +1,22 @@
+model PhaseOrder {
+  id            String      @id @default(uuid())
+  sNo           Int         @default(autoincrement())
+  phaseId       String?
+  projectId     String?
+  masterPhaseId String
+  projectTypeId String
+  MasterPhase   MasterPhase @relation(fields: [masterPhaseId], references: [id])
+  Phase         Phase?      @relation(fields: [phaseId], references: [id])
+  Project       Project?    @relation(fields: [projectId], references: [id])
+  ProjectType   ProjectType @relation(fields: [projectTypeId], references: [id])
+}
+
+model MasterPhaseOrder {
+  id            String      @id @default(uuid())
+  sNo           Int         @default(autoincrement())
+  order         Int
+  masterPhaseId String
+  projectTypeId String
+  MasterPhase   MasterPhase @relation(fields: [masterPhaseId], references: [id])
+  ProjectType   ProjectType @relation(fields: [projectTypeId], references: [id])
+}

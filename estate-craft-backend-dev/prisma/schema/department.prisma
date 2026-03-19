@@ -1,0 +1,10 @@
+model Department {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  displayName String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  status      Status   @default(ACTIVE)
+  sNo         Int      @default(autoincrement())
+}

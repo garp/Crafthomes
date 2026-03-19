@@ -1,0 +1,14 @@
+model ModuleAccess {
+  id           String   @id @default(uuid())
+  roleId       String
+  topLevel     String
+  typeLevel    String?
+  subtypeLevel String?
+  status       Status   @default(ACTIVE)
+  sNo          Int      @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  role         Role     @relation(fields: [roleId], references: [id])
+
+  @@unique([roleId, topLevel, typeLevel, subtypeLevel])
+}

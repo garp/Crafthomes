@@ -1,0 +1,78 @@
+# --- OS ---
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+Desktop.ini
+
+# --- IDEs & editors ---
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+*.swo
+*~
+
+# --- Secrets & environment (do not publish) ---
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env*.example
+*.pem
+*.p12
+*.pfx
+*.key
+!*.key.example
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+*credentials*.json
+credentials.json
+.secrets/
+
+# --- Dependencies ---
+node_modules/
+
+# --- Builds & output ---
+dist/
+dist-ssr/
+build/
+out/
+.next/
+.nuxt/
+coverage/
+.nyc_output/
+*.tsbuildinfo
+
+# --- Caches ---
+.cache/
+.parcel-cache/
+.turbo/
+.npm/
+.eslintcache
+.stylelintcache
+*.local
+
+# --- Logs ---
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# --- Deploy / local tooling ---
+.vercel
+.netlify
+.serverless/
+
+# --- Optional: local scratch ---
+todo.txt

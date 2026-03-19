@@ -1,0 +1,50 @@
+# Dependency directories
+./node_modules/
+node_modules/
+
+# Environment variables (all variants; allow committed examples only)
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env*.example
+
+# Production build output
+/dist
+/build
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Lock files
+package-lock.json
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Serverless directories
+.serverless/
+.serverless
+
+# IDE / Editors
+.vscode/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+
+./src/uplaods/*
+/src/uploads/*
+/src/uploads
+src/uploads/*
+public
+/src/generated/prisma
+
+src/examples/*
+config/dummy-permissions.js

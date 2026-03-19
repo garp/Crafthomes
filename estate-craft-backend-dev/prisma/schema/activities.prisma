@@ -1,0 +1,26 @@
+model Activities {
+  id           String   @id @default(uuid())
+  activityType String?
+  userId       String
+  taskId       String?
+  createdAt    DateTime @default(now())
+  subTaskId    String?
+  activity     String[]
+  fieldUpdated String?
+  entityId     String?
+  entityName   String?
+  entityType   String?
+  metadata     Json?
+  projectId    String?
+  project      Project? @relation(fields: [projectId], references: [id])
+  subTask      SubTask? @relation(fields: [subTaskId], references: [id])
+  task         Task?    @relation(fields: [taskId], references: [id])
+  user         User     @relation(fields: [userId], references: [id])
+
+  @@index([userId, createdAt])
+  @@index([taskId, createdAt])
+  @@index([subTaskId, createdAt])
+  @@index([projectId, createdAt])
+  @@index([projectId, entityType])
+  @@index([entityType, createdAt])
+}

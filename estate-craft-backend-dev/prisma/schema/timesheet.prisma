@@ -1,0 +1,242 @@
+model Timesheet {
+  id String @id @default(uuid())
+
+  timesheetWeekId String?
+  timesheetWeek   TimesheetWeek? @relation(fields: [timesheetWeekId], references: [id])
+
+  projectId String?
+  project   Project? @relation(fields: [projectId], references: [id])
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
+
+  // Tasks linked through junction table (many-to-many)
+  TimesheetTask TimesheetTask[]
+  // Activities linked to this timesheet (one-to-many)
+  activities    TimesheetActivity[]
+  decisionLogs  TimesheetDecisionLog[]
+
+  description String?
+  date        DateTime?
+  startTime   DateTime?
+  endTime     DateTime?
+  status      TimesheetStatus @default(PENDING)
+
+  submittedAt DateTime?
+  submittedBy String?
+  approvedAt  DateTime?
+  approvedBy  String?
+  rejectedAt  DateTime?
+  rejectedBy  String?
+  rejectionComment String?
+
+  billedAt   DateTime?
+  billedBy   String?
+  billingRef String?
+
+  createdAt DateTime? @default(now())
+  createdBy String?
+  updatedAt DateTime? @updatedAt
+  updatedBy String?
+
+  @@index([projectId, userId])
+  @@index([userId, date])
+  @@index([timesheetWeekId, status])
+}
+
+model TimesheetTask {
+  id          String   @id @default(uuid())
+  timesheetId String
+  taskId      String
+  createdAt   DateTime @default(now())
+  createdBy   String?
+
+  Timesheet Timesheet @relation(fields: [timesheetId], references: [id], onDelete: Cascade)
+  Task      Task      @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@unique([timesheetId, taskId])
+  @@index([timesheetId])
+  @@index([taskId])
+}
+
+model TimesheetActivity {
+  id   String @id @default(uuid())
+  name String
+
+  timesheetId String
+  timesheet   Timesheet @relation(fields: [timesheetId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  createdBy String?
+  updatedAt DateTime @updatedAt
+  updatedBy String?
+
+  @@index([name])
+  @@index([createdAt])
+}
+
+enum TimesheetStatus {
+  PENDING
+  SUBMITTED
+  APPROVED
+  REJECTED
+  BILLED
+}
+
+model TimesheetWeek {
+  id String @id @default(uuid())
+
+  userId String
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  weekStartDate DateTime
+  weekEndDate   DateTime
+  status        TimesheetWeekStatus @default(DRAFT)
+
+  submittedAt DateTime?
+  submittedBy String?
+  approvedAt  DateTime?
+  approvedBy  String?
+  rejectedAt  DateTime?
+  rejectedBy  String?
+  rejectionComment String?
+
+  billedAt   DateTime?
+  billedBy   String?
+  billingRef String?
+
+  timesheets Timesheet[]
+  decisionLogs TimesheetDecisionLog[]
+
+  createdAt DateTime @default(now())
+  createdBy String?
+  updatedAt DateTime @updatedAt
+  updatedBy String?
+
+  @@unique([userId, weekStartDate])
+  @@index([userId, weekStartDate])
+  @@index([status, weekStartDate])
+}
+
+enum TimesheetWeekStatus {
+  DRAFT
+  SUBMITTED
+  APPROVED
+  REJECTED
+  BILLED
+}
+
+model TimesheetApproverAssignment {
+  id String @id @default(uuid())
+
+  employeeId String
+  approverId String
+
+  employee User @relation("TimesheetApproverEmployee", fields: [employeeId], references: [id], onDelete: Cascade)
+  approver User @relation("TimesheetApproverApprover", fields: [approverId], references: [id], onDelete: Cascade)
+
+  active        Boolean  @default(true)
+  effectiveFrom DateTime?
+  effectiveTo   DateTime?
+
+  createdAt DateTime @default(now())
+  createdBy String?
+  updatedAt DateTime @updatedAt
+  updatedBy String?
+
+  @@unique([employeeId, approverId])
+  @@index([employeeId, active])
+  @@index([approverId, active])
+}
+
+model TimesheetDecisionLog {
+  id String @id @default(uuid())
+
+  targetType TimesheetDecisionTargetType
+  action     TimesheetDecisionAction
+  comment    String?
+  metadata   Json?
+
+  actorId String
+  actor   User @relation("TimesheetDecisionActor", fields: [actorId], references: [id], onDelete: Cascade)
+
+  timesheetId     String?
+  timesheet       Timesheet?     @relation(fields: [timesheetId], references: [id], onDelete: Cascade)
+  timesheetWeekId String?
+  timesheetWeek   TimesheetWeek? @relation(fields: [timesheetWeekId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([actorId, createdAt])
+  @@index([timesheetId, createdAt])
+  @@index([timesheetWeekId, createdAt])
+}
+
+enum TimesheetDecisionTargetType {
+  ENTRY
+  WEEK
+}
+
+enum TimesheetDecisionAction {
+  SUBMIT
+  APPROVE
+  REJECT
+  BILL
+}
+
+model TimesheetReminderRule {
+  id String @id @default(uuid())
+
+  name        String?
+  active      Boolean @default(true)
+  missedDays  Int
+  recipientScope TimesheetReminderRecipientScope
+  channel     TimesheetReminderChannel @default(EMAIL)
+
+  // Optional scheduling hints for the reminder job
+  sendAtHour   Int? // 0-23, evaluated in server local time
+  sendAtMinute Int? // 0-59
+
+  createdAt DateTime @default(now())
+  createdBy String?
+  updatedAt DateTime @updatedAt
+  updatedBy String?
+
+  logs TimesheetReminderLog[]
+
+  @@unique([missedDays, recipientScope, channel])
+  @@index([active, missedDays])
+}
+
+enum TimesheetReminderRecipientScope {
+  EMPLOYEE
+  APPROVERS
+  MANAGEMENT
+  ADMINS
+}
+
+enum TimesheetReminderChannel {
+  EMAIL
+  IN_APP
+}
+
+model TimesheetReminderLog {
+  id String @id @default(uuid())
+
+  userId String
+  user   User @relation("TimesheetReminderUser", fields: [userId], references: [id], onDelete: Cascade)
+
+  ruleId String
+  rule   TimesheetReminderRule @relation(fields: [ruleId], references: [id], onDelete: Cascade)
+
+  // The date (normalized to start-of-day) for which the reminder was evaluated/sent
+  date DateTime
+  channel TimesheetReminderChannel @default(EMAIL)
+
+  sentAt   DateTime @default(now())
+  metadata Json?
+
+  @@unique([userId, ruleId, date, channel])
+  @@index([userId, date, channel])
+  @@index([ruleId, date])
+}

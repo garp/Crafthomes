@@ -1,0 +1,24 @@
+model MasterTask {
+  id                    String                  @id @default(uuid())
+  name                  String
+  description           String?
+  createdAt             DateTime                @default(now())
+  updatedAt             DateTime                @updatedAt
+  createdBy             String?
+  status                Status                  @default(ACTIVE)
+  updatedBy             String?
+  sNo                   Int                     @default(autoincrement())
+  duration              Int?
+  predecessorTaskId     String?
+  notes                 String?
+  subTasks              Json?
+  priority              Priority                @default(MEDIUM)
+  predecessorTask       MasterTask?             @relation("MasterTaskPredecessor", fields: [predecessorTaskId], references: [id], onDelete: SetNull)
+  dependentTasks        MasterTask[]            @relation("MasterTaskPredecessor")
+  MasterPhaseMasterTask MasterPhaseMasterTask[] @relation("MasterTaskMasterPhase")
+  MasterTaskOrder       MasterTaskOrder[]
+
+  @@index([name, status, createdAt])
+  @@index([sNo])
+  @@index([predecessorTaskId])
+}

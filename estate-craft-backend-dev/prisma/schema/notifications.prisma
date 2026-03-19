@@ -1,0 +1,19 @@
+model Notification {
+  id        String    @id @default(uuid())
+  type      String
+  title     String
+  message   String?
+  metadata  Json?
+  userId    String
+  actorId   String?
+  isRead    Boolean   @default(false)
+  readAt    DateTime?
+  status    String    @default("ACTIVE")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  actor     User?     @relation("NotificationActor", fields: [actorId], references: [id])
+  user      User      @relation("UserNotifications", fields: [userId], references: [id])
+
+  @@index([userId, isRead, createdAt])
+  @@index([userId, status, createdAt])
+}

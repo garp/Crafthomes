@@ -1,0 +1,10 @@
+model Area {
+  id             String          @id @default(uuid())
+  sNo            Int             @default(autoincrement())
+  name           String
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  QuotationItem  QuotationItem[]
+
+  @@index([name])
+}

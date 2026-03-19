@@ -1,0 +1,21 @@
+model TimelinePhaseOrder {
+  id         String   @id @default(uuid())
+  sNo        Int      @default(autoincrement())
+  order      Int
+  timelineId String
+  phaseId    String
+  Phase      Phase    @relation(fields: [phaseId], references: [id])
+  Timeline   Timeline @relation(fields: [timelineId], references: [id])
+}
+
+model TimeLineTaskOrder {
+  id         String   @id @default(uuid())
+  sNo        Int      @default(autoincrement())
+  order      Int
+  timelineId String
+  taskId     String
+  phaseId    String
+  Phase      Phase    @relation(fields: [phaseId], references: [id])
+  Task       Task     @relation(fields: [taskId], references: [id])
+  Timeline   Timeline @relation(fields: [timelineId], references: [id])
+}

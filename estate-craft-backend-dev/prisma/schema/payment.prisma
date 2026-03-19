@@ -1,0 +1,64 @@
+model Payment {
+  id                 String         @id @default(uuid())
+  sNo                Int            @default(autoincrement())
+  projectId          String?
+  clientId           String?
+  dueDate            DateTime?
+  subTotalAmount     Int?
+  discount           Int?
+  tax                Int?
+  totalAmount        Int?
+  paymentType        PaymentType?
+  paymentStatus      PaymentStatus  @default(DRAFT)
+  paymentDate        DateTime?
+  createdAt          DateTime       @default(now())
+  createdBy          String
+  status             Status         @default(ACTIVE)
+  updatedAt          DateTime?      @updatedAt
+  updatedBy          String?
+  referenceId        String?
+  otherPaymentMethod String?
+  paymentMethod      PaymentMethod?
+  client             Client?        @relation(fields: [clientId], references: [id])
+  createdByUser      User           @relation("createdByUser", fields: [createdBy], references: [id])
+  project            Project?       @relation(fields: [projectId], references: [id])
+  updatedByUser      User?          @relation("updatedByUser", fields: [updatedBy], references: [id])
+  paymentItems       PaymentItem[]
+}
+
+model PaymentItem {
+  id        String  @id @default(uuid())
+  sNo       Int     @default(autoincrement())
+  name      String
+  quantity  Int
+  price     Int
+  paymentId String
+  payment   Payment @relation(fields: [paymentId], references: [id])
+}
+
+enum PaymentType {
+  ADVANCE
+  INTERIM
+  FINAL
+  NA
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  PARTIALLY_PAID
+  DRAFT
+  PROCESSING
+  REQUESTED
+  CANCELLED
+}
+
+enum PaymentMethod {
+  CASH
+  BANK_TRANSFER
+  CHEQUE
+  ONLINE_TRANSFER
+  OTHER
+  NA
+  CARD
+}

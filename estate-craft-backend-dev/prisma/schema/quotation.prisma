@@ -1,0 +1,53 @@
+model QuotationItem {
+  id           String      @id @default(uuid())
+  sNo          Int         @default(autoincrement())
+  quantity     Int
+  total        Int
+  quotationId  String
+  masterItemId String
+  discount     Int?
+  gst          Int         @default(18)
+  mrp          Int?
+  area         String?     // Legacy display; prefer areaId
+  areaId       String?
+  unitId       String?
+  attachmentId String?
+  attachment   Attachment? @relation(fields: [attachmentId], references: [id])
+  areaRef      Area?       @relation(fields: [areaId], references: [id], onDelete: SetNull)
+  masterItem   masterItem  @relation(fields: [masterItemId], references: [id])
+  quotation    Quotation   @relation(fields: [quotationId], references: [id])
+  unit         Unit?       @relation("QuotationItemUnit", fields: [unitId], references: [id])
+}
+
+model Quotation {
+  id              String          @id @default(uuid())
+  sNo             Int             @default(autoincrement())
+  clientId        String
+  discount        Int?
+  paidAmount      Int?
+  quotationStatus QuotationStatus @default(PENDING)
+  createdAt       DateTime        @default(now())
+  createdBy       String
+  updatedAt       DateTime?       @updatedAt
+  updatedBy       String?
+  name            String
+  totalAmount     Int?
+  projectId       String?
+  startDate       DateTime?
+  description     String?
+  remainingAmount Int?
+  policyId        String?
+  client          Client          @relation(fields: [clientId], references: [id])
+  createdByUser   User            @relation("createdByUser", fields: [createdBy], references: [id])
+  policy          Policy?         @relation(fields: [policyId], references: [id])
+  project         Project?        @relation(fields: [projectId], references: [id])
+  updatedByUser   User?           @relation("updatedByUser", fields: [updatedBy], references: [id])
+  quotationItem   QuotationItem[]
+}
+
+enum QuotationStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+  DRAFT
+}

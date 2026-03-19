@@ -1,0 +1,20 @@
+model ProjectType {
+  id                    String                        @id @default(uuid())
+  name                  String                        @unique
+  createdAt             DateTime                      @default(now())
+  updatedAt             DateTime                      @updatedAt
+  createdBy             String?
+  status                Status                        @default(ACTIVE)
+  updatedBy             String?
+  sNo                   Int                           @default(autoincrement())
+  MasterPhaseOrder      MasterPhaseOrder[]
+  MasterTaskOrder       MasterTaskOrder[]
+  PhaseOrder            PhaseOrder[]
+  Project               Project[]
+  ProjectTypeGroupOrder ProjectTypeGroupOrder[]
+  projectTypeGroups     ProjectTypeGroupProjectType[]
+  masterPhases          ProjectTypeMasterPhase[]
+
+  @@index([name, status, createdAt])
+  @@index([sNo])
+}

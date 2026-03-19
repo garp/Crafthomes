@@ -1,0 +1,10 @@
+model MasterPhaseMasterTask {
+  id            String      @id @default(uuid())
+  masterPhaseId String
+  masterTaskId  String
+  sNo           Int         @default(autoincrement())
+  MasterPhase   MasterPhase @relation(fields: [masterPhaseId], references: [id])
+  MasterTask    MasterTask  @relation("MasterTaskMasterPhase", fields: [masterTaskId], references: [id])
+
+  @@index([masterPhaseId, masterTaskId])
+}

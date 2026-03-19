@@ -1,0 +1,17 @@
+model Permission {
+  id          String   @id @default(uuid())
+  group       String
+  name        String
+  displayName String?
+  description String?
+  roleId      String
+  endpoint    String
+  method      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  status      Status   @default(ACTIVE)
+  sNo         Int      @default(autoincrement())
+  role        Role     @relation(fields: [roleId], references: [id])
+
+  @@unique([roleId, endpoint, method])
+}
