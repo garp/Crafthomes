@@ -13,7 +13,7 @@ RUN npm install
 # Copy the rest of your app
 COPY . .
 
-RUN cp .env.dev .env && \
+RUN cp .env .env && \
 	npm run prisma:generate && \
 	npm run prisma:migrate:deploy
 
