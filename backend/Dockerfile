@@ -13,8 +13,7 @@ RUN npm install
 # Copy the rest of your app
 COPY . .
 
-RUN cp .env .env && \
-	npm run prisma:generate && \
+RUN npm run prisma:generate && \
 	npm run prisma:migrate:deploy
 
 # Expose app port (change if your app uses a different one)
